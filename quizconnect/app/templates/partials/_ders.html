@@ -1,0 +1,9 @@
+{% load static %}
+<div class="card text-bg-dark">
+    <img src="{% static 'img/'|add:soru.resim %}" class="card-img" alt="..." width="300" height="300">
+    <div class="card-img-overlay">
+        <h5 class="card-title">{{soru.soru_adi}}</h5>
+        <p class="card-text">{{soru.aciklama}}</p> 
+        <a href="{% url 'dersdetails' soru.name%}" class="btn btn-danger">Details</a>
+    </div>
+</div>    
