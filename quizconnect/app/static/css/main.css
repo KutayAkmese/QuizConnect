@@ -1,0 +1,19 @@
+body {
+    background: #D8D9DA;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: 'Lato', sans-serif;
+    color: #272829;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: #61677A;
+    text-align: justify;
+  }
