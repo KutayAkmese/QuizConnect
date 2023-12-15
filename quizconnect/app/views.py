@@ -13,3 +13,9 @@ def lessons(request):
 # Lessons detial
 def lessonDetails(request):
     return render(request,"details.html")
+
+def login(request):
+    return render(request, "login.html")
+
+def register(request):
+    return render(request, "register.html")
