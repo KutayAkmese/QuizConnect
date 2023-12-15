@@ -9,9 +9,9 @@
       <div class="col-8 col-lg-6 me-lg-auto mb-md-0">
         <ul class="nav px-2 gap-2">
           <li><a href="{% url 'home' %}" class="nav-link px-2 text-white fw-bold">Quiz Connect |</a></li>
-          <li><a href="{% url 'lessons' %}" class="nav-link px-2 text-white">Profile</a></li>
+          <li><a href="{% url 'addQuestion' %}" class="nav-link px-2 text-white">Add Question</a></li>
           <li><a href="{% url 'lessons' %}" class="nav-link px-2 text-white">Lessons</a></li>
-          <li><a href="{% url 'lessons' %}" class="nav-link px-2 text-white">Add Question</a></li>
+          <li><a href="{% url 'profile' %}" class="nav-link px-2 text-white">Your Profile</a></li>
         </ul>
       </div>
       
@@ -23,7 +23,7 @@
               <button type="submit" class="glow-on-hover custom-btn">Search</button>
             </div>  
           </form>
-          <a href=""><button type="button" class="glow-on-hover custom-btn">Logout</button></a>
+          <a href="{% url 'login' %}"><button type="button" class="glow-on-hover custom-btn">Logout</button></a>
         </div>
        
       </div>
