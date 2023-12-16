@@ -11,4 +11,6 @@ urlpatterns=[
     path("details", views.questionDetail, name="details"),
     path("leesons", views.lessons, name="lessons"),
     path("lessons/<str:name>", views.lessonDetails, name="lessonDetails"),
+    path("addUser", views.addUser, name="addUser"),
+    path("loginUser", views.loginUser, name="loginUser"),
 ]
