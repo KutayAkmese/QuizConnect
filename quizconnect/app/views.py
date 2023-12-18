@@ -1,41 +1,47 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import User
 
 
-# Login page
-def login(request):
-    return render(request, "login.html")
-
-# Register page
-def register(request):
-    return render(request, "register.html")
-
-def addUser(request):
-    if request.method == "POST":
-        first_name = request.POST.get("firstName")
-        last_name = request.POST.get("lastName")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        user = User(first_name=first_name, last_name=last_name, email=email, password=password)
-        user.save()
-    return render(request, "login.html")
-
-def loginUser(request):
-    email = request.POST.get("email")
-    password = request.POST.get("password")
-    try:
-        if User.objects.filter(email=email).filter(password=password):
-            return render(request, "index.html")
-        else:
-            return render(request, "login.html")
-    except:
-        print("Failed to query from models")
-        return render(request, "login.html")
 
 # Home page / Time line
 def home(request): 
-     
+    
     return render(request,"index.html")
+
+# Login page
+def login(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        try:    
+            user = User.objects.filter(email=email).filter(password=password)
+            if user:
+                return redirect('home')
+            else:
+                return redirect('login')
+        except:
+            print("Failed to query from models")
+            return render(request, "login.html")
+    else:
+        return render(request, "login.html")
+
+# Register page
+def register(request):
+    if request.method == "POST":
+        try: 
+            first_name = request.POST.get("firstName")
+            last_name = request.POST.get("lastName")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+            user = User(first_name=first_name, last_name=last_name, email=email, password=password)
+            user.save()
+            return redirect('home')
+        except:
+            # Burada bir hata mesaji gonderilecek. 
+            return redirect('register')
+    else:
+        return render(request, "register.html")
+    
 
 # Lessons pages
 def lessons(request):
@@ -44,8 +50,6 @@ def lessons(request):
 # Lessons detial
 def lessonDetails(request):
     return render(request,"details.html")
-
-
 
 # Profile page
 def profile(request):

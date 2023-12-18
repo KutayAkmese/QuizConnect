@@ -1,16 +1,16 @@
 from django.urls import path
 from . import views
+from .models import User
+
 
 urlpatterns=[
-    path("", views.home, name="home"),
-    path("home", views.home, name="home"),
+    path("", views.login, name="login"),
     path("login", views.login, name="login"),
     path("register", views.register, name="register"),
+    path("home", views.home, name="home"),
     path("profile", views.profile, name="profile"),
     path("add", views.addQuestion, name="addQuestion"),
     path("details", views.questionDetail, name="details"),
     path("leesons", views.lessons, name="lessons"),
     path("lessons/<str:name>", views.lessonDetails, name="lessonDetails"),
-    path("addUser", views.addUser, name="addUser"),
-    path("loginUser", views.loginUser, name="loginUser"),
 ]
