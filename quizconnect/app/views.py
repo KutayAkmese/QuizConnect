@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import User
 
-
-
 # Home page / Time line
-def home(request): 
-    
-    return render(request,"index.html")
+def home(request, user_id): 
+    user = User.objects.get(id=user_id)
+    print(user.first_name)
+    return render(request,"index.html", {
+        'user': user,
+        'userName': user.first_name 
+        })
 
 # Login page
 def login(request):
@@ -16,7 +18,8 @@ def login(request):
         try:    
             user = User.objects.filter(email=email).filter(password=password)
             if user:
-                return redirect('home')
+                id = User.objects.get(email=email).id
+                return redirect('home/' + str(id))
             else:
                 return redirect('login')
         except:
@@ -52,8 +55,12 @@ def lessonDetails(request):
     return render(request,"details.html")
 
 # Profile page
-def profile(request):
-    return render(request, "profile.html")
+def profile(request, user_id):
+    user = User.objects.get(id=user_id)
+
+    return render(request, "profile.html", {
+        'user':user
+    })
 
 def addQuestion(request):
     return render(request, "addQuestion.html")
