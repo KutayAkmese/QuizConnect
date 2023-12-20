@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
-from .models import User
+from .models import User, Question
+from django.http import Http404
 
 # Home page / Time line
 def home(request, user_id): 
     user = User.objects.get(id=user_id)
-    print(user.first_name)
+    questions = Question.objects.all().order_by('-created_at')
     return render(request,"index.html", {
         'user': user,
-        'userName': user.first_name 
+        'userName': user.first_name,
+        'questions': questions,
         })
 
 # Login page
@@ -21,7 +23,7 @@ def login(request):
                 id = User.objects.get(email=email).id
                 return redirect('home/' + str(id))
             else:
-                return redirect('login')
+                return redirect('home/' + str(user.id))
         except:
             print("Failed to query from models")
             return render(request, "login.html")
@@ -38,32 +40,54 @@ def register(request):
             password = request.POST.get("password")
             user = User(first_name=first_name, last_name=last_name, email=email, password=password)
             user.save()
-            return redirect('home')
+            return redirect('home/' + str(user.id))
         except:
             # Burada bir hata mesaji gonderilecek. 
             return redirect('register')
     else:
         return render(request, "register.html")
     
+def addQuestion(request, user_id):
+    user = User.objects.get(id=user_id)
+    if request.method == "POST": 
+        questionText = request.POST.get("questionText")
+        imageFile = request.POST.get("imageFile")
+        star_number = 2
+        questionTitle = request.POST.get("questionTitle")
+        lessonSelection = request.POST.get("lessonSelection")
+        question = Question(question_title=questionTitle, question_image=imageFile, 
+                            question_text=questionText, star_number=star_number, user_id= user.id, lesson_id=1)
+        question.save()
+        return redirect('http://127.0.0.1:8000/home/' + str(user.id))
 
-# Lessons pages
-def lessons(request):
-    return render(request,"lessons.html")
-
-# Lessons detial
-def lessonDetails(request):
-    return render(request,"details.html")
-
-# Profile page
+    return render(request, "addQuestion.html", {
+        'user': user
+    })
+   
+   # Profile page
 def profile(request, user_id):
     user = User.objects.get(id=user_id)
 
     return render(request, "profile.html", {
         'user':user
+    }) 
+    
+
+    
+    
+
+# Lessons pages
+def lessons(request, user_id):
+    user = User.objects.get(id=user_id)
+    
+    return render(request,"lessons.html", {
+        'user': user
     })
 
-def addQuestion(request):
-    return render(request, "addQuestion.html")
+# Lessons detial
+def lessonDetails(request):
+    return render(request,"details.html")
+
 
 def questionDetail(request):
     return render(request, "details.html")

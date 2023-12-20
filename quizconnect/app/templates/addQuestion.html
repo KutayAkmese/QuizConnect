@@ -20,19 +20,17 @@
             <h1 class="display-5 fw-bold lh-1 mb-3">Add a Question </h1>
         </div>
     </div>
-
-
-
     <div class="container py-5 d-flex justify-content-center">
         <div class="col-lg-8">
-            <form action="">
+            <form action="{% url 'addQuestion' user_id=user.id %}" method="POST">
+                {% csrf_token %}
                 <div class="form-outline py-4">
                     <label class="form-label fw-bold px-2">Question Title</label>
-                    <input type="text" id="form6Example1" class="form-control" />
+                    <input type="text" class="form-control" name="questionTitle"/>
                 </div>
                 <div class="form-group mb-4">
                     <label class="form-label fw-bold px-2">Course Selection</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
+                    <select class="form-control" name="lessonSelection">
                         <option>Data Structures and Algorithms</option>
                         <option>Physics</option>
                         <option>Calculus I</option>
@@ -56,7 +54,7 @@
                                 <div class="btn glow-on-hover custom-btn d-flex align-items-center justify-content-center"
                                     style="width: 150px;">
                                     <label class="form-label text-white m-1" for="customFile2">Choose file</label>
-                                    <input type="file" class="form-control d-none" id="customFile2"
+                                    <input type="file" class="form-control d-none"  id="customFile2" name="imageFile"
                                         onchange="displaySelectedImage(event, 'selectedAvatar')" />
                                 </div>
                             </div>
@@ -65,10 +63,10 @@
                 </div>
                 <div class="form-outline mb-4">
                     <label class="form-label px-2 fw-bold">Describe the Part of The Question That Concerns You</label>
-                    <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                    <textarea class="form-control" name="questionText" rows="4"></textarea>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="glow-on-hover custom-btn" style="width: 150px;">Add Question</button>
+                    <button type="submit" class="glow-on-hover custom-btn" style="width: 150px;">Add Question</button>
                 </div>
             </form>
         </div>

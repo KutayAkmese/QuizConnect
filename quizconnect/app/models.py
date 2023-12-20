@@ -20,19 +20,21 @@ class Lesson(models.Model):
         return self.name
     
 class Question(models.Model):
+    question_title = models.TextField(default="An explanation is needed for the question here.")
     question_text = models.TextField(default="An explanation is needed for the question here.")
     question_image = models.ImageField(upload_to ='uploads/questions')
     star_number = models.IntegerField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, default=4)
     
     def __str__(self): 
         return self.question_text[0:100]
 
 class Answer(models.Model):
     answer_text = models.TextField(default="An explanation is needed for the answer here.")
-    answer_image = models.ImageField(upload_to ='uploads/answers')
+    answer_image = models.ImageField(upload_to ='uploads/answers', blank=True)
     star_number = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
