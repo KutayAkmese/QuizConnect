@@ -64,7 +64,7 @@ def addQuestion(request, user_id):
         'user': user
     })
    
-   # Profile page
+# Profile page
 def profile(request, user_id):
     user = User.objects.get(id=user_id)
 
@@ -98,3 +98,14 @@ def questionDetail(request, user_id, item_id):
         'user': user,
         'timeLineItem': timeLineItem,
     })
+    
+def like(request, user_id, item_id):
+    user = User.objects.get(pk=user_id)
+    question_id = TimeLineItem.objects.filter(id=item_id).values_list('question_id', flat=True)
+    question = Question.objects.get(id=question_id[0])
+    question.star_number = question.star_number + 1
+    question.save()
+  
+    return redirect('http://127.0.0.1:8000/home/'+ str(user.id))
+    
+

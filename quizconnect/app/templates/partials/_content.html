@@ -23,7 +23,7 @@
           <div class="d-flex justify-content-between pt-3">
             <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><button type="button" class="glow-on-hover custom-btn mb-3" style="width: 150px;">View</button></a>
             <div class="mt-1 d-flex justify-content-between gap-4 align-items-center">
-              <a>
+              <a href="{% url 'like' user_id=user.id item_id=timeLineItem.id %}">
                 <button class="like-button">
                   <div class="like-wrapper">
                     <div class="ripple"></div>
