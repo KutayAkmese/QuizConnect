@@ -10,7 +10,7 @@ class User(models.Model):
     
     def __str__(self): 
         return self.first_name + " " + self.last_name
-
+    
 class Lesson(models.Model):
     name = models.CharField(max_length=200)
     lesson_code = models.CharField(max_length=10)
@@ -23,14 +23,20 @@ class Question(models.Model):
     question_title = models.TextField(default="An explanation is needed for the question here.")
     question_text = models.TextField(default="An explanation is needed for the question here.")
     question_image = models.ImageField(upload_to ='uploads/questions')
-    star_number = models.IntegerField(blank=True)
+    star_number = models.IntegerField(blank=True, default=0)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, default=4)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     
     def __str__(self): 
         return self.question_text[0:100]
+
+class TimeLineItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    def __str__(self): 
+        return self.user.first_name + self.user.last_name + '||' + self.question.question_text[0:100]
 
 class Answer(models.Model):
     answer_text = models.TextField(default="An explanation is needed for the answer here.")
@@ -43,10 +49,6 @@ class Answer(models.Model):
     def __str__(self): 
         return self.answer_text[0:100]
     
-class TimeLineItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    
-    def __str__(self): 
-        return self.user.first_name + self.user.last_name + '||' + self.question.question_text[0:100]
+
+
    

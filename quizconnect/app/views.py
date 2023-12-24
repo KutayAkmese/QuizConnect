@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import User, Question
+from .models import User, Question, TimeLineItem
 from django.http import Http404
 
 # Home page / Time line
 def home(request, user_id): 
-    user = User.objects.get(id=user_id)
-    questions = Question.objects.all().order_by('-created_at')
+    mainUser = User.objects.get(id=user_id)
+    timeLineItems = TimeLineItem.objects.all().order_by("-id")
     return render(request,"index.html", {
-        'user': user,
-        'userName': user.first_name,
-        'questions': questions,
+        'user': mainUser,
+        'timeLineItems': timeLineItems,
         })
 
 # Login page
@@ -52,12 +51,13 @@ def addQuestion(request, user_id):
     if request.method == "POST": 
         questionText = request.POST.get("questionText")
         imageFile = request.POST.get("imageFile")
-        star_number = 2
         questionTitle = request.POST.get("questionTitle")
         lessonSelection = request.POST.get("lessonSelection")
         question = Question(question_title=questionTitle, question_image=imageFile, 
-                            question_text=questionText, star_number=star_number, user_id= user.id, lesson_id=1)
+                            question_text=questionText, user_id= user.id, lesson_id=1)
         question.save()
+        timeLineItem = TimeLineItem(question_id=question.id, user_id=user.id)
+        timeLineItem.save()
         return redirect('http://127.0.0.1:8000/home/' + str(user.id))
 
     return render(request, "addQuestion.html", {
@@ -72,10 +72,6 @@ def profile(request, user_id):
         'user':user
     }) 
     
-
-    
-    
-
 # Lessons pages
 def lessons(request, user_id):
     user = User.objects.get(id=user_id)
@@ -85,9 +81,20 @@ def lessons(request, user_id):
     })
 
 # Lessons detial
-def lessonDetails(request):
-    return render(request,"details.html")
+def lessonDetails(request, user_id):
+    user = User.objects.get(id=user_id)
+
+    return render(request,"details.html", {
+        'user': user
+    })
 
 
-def questionDetail(request):
-    return render(request, "details.html")
+def questionDetail(request, user_id, item_id):
+    user = User.objects.get(id=user_id)
+    timeLineItem = TimeLineItem.objects.get(id=item_id)
+    
+
+    return render(request,"details.html", {
+        'user': user,
+        'timeLineItem': timeLineItem,
+    })

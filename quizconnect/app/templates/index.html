@@ -10,22 +10,6 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
   <body>
-    {% comment "" %}
-      <div class="container mt-3">
-        <div class="row">
-            <div class="col-3">
-
-                <div class="list-group">
-                    {% for kategori in kategoriler %}
-                        <a href="#" class="list-group-item list-group-item-action" >
-                            {{kategori}}
-                        </a>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endcomment %}
     {% include 'partials/_navbar.html'%}
 
     <div class="pt-5 d-flex justify-content-center">

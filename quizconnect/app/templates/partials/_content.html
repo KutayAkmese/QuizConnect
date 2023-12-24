@@ -1,25 +1,37 @@
 {% load static %}
 
-{% if questions %}
-  {% for question in questions %}
+{% if timeLineItems %}
+  {% for timeLineItem in timeLineItems %}
     <div class="container col-lg-6 my-4">
-      <div class="row p-3 mt-4 pt-5 align-items-center rounded-3 border shadow-lg">
-        <div class="col-lg-7 mx-3">
-          <a href="{% url 'details' %}" class="text-decoration-none"><h2 class="fw-bold lh-1 text-body-emphasis py-1">{{ question.question_title }}</h2></a>
-          <div class="d-flex justify-content-between py-3">
-            <small class="text-muted fw-bold "> {{ question.user_id }} {{question.user_id}}</small>
-            <small class="text-muted fw-bold justify-content-end">Created at : {{ question.updated_at }}</small>
-          </div>
-          <p class="lead">{{ question.question_text|slice:255 }}</p>
-          <div class="d-flex justify-content-start pt-3">
-            <a href="{% url 'details' %}"><button type="button" class="glow-on-hover custom-btn mb-4" style="width: 150px;">View</button></a>
-          </div>
+      <div class="row p-3 mt-4 pt-5 align-items-center rounded-3 border shadow-lg d-flex justify-content-center">
+        <div class="col-lg-11 d-flex justify-content-between pb-3">
+          <h2 class="text-muted fw-bold"> {{ timeLineItem.user.first_name }} {{ timeLineItem.user.last_name }}</h2>
+          <h3 class="text-muted fw-bold px-4"> {{ timeLineItem.question.lesson.name }} </h3>
         </div>
-        <div class="col-lg-3 offset-lg-1 mb-4">
-          <a href="{% url 'details' %}"><img src="{% static 'img/example.png' %}" class="d-flex align-items-center" height="200"></a>
+        <hr class="col-lg-11 pb-2">
+        <div class="col-lg-11 d-flex justify-content-between">
+          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}" class="text-decoration-none"><h2 class="fw-bold lh-1 text-body-emphasis py-1">{{ timeLineItem.question.question_title }}</h2></a>
+          <small class="text-muted fw-bold justify-content-end">{{ timeLineItem.question.updated_at }}</small>
         </div>
+        <div class="col-lg-11 py-4 d-flex justify-content-center">
+          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="{% static 'img/example.png' %}" class="d-flex align-items-center" height="400"></a>
+        </div>
+        
+
+        <div class="col-lg-9 mx-3 pt-3">
+          <p class="lead">{{ timeLineItem.question.question_text|slice:255 }}</p>
+          <div class="d-flex justify-content-between pt-3">
+            <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><button type="button" class="glow-on-hover custom-btn mb-3" style="width: 150px;">View</button></a>
+            <div class="mt-1 d-flex justify-content-between gap-4">
+              <a href=""><button type="button" class="glow-on-hover custom-btn mb-3" style="width: 150px;">Star</button></a>
+              <p class="text-muted fw-bold justify-content-end mt-2">{{ timeLineItem.question.star_number}} &#9733;</p>
+            </div>
+          </div>
+          
+        </div>
+          
       </div>
-    </div> 
+    </div>  
   {% endfor %}
 {% endif %}
 

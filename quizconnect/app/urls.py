@@ -14,7 +14,7 @@ urlpatterns=[
     path("home/<str:user_id>", views.home, name="home"),
     path("profile/<str:user_id>", views.profile, name="profile"),
     path("add/<str:user_id>", views.addQuestion, name="addQuestion"),
-    path("details", views.questionDetail, name="details"),
+    path("details/<str:user_id>/<str:item_id>", views.questionDetail, name="details"),
     path("lessons/<str:user_id>", views.lessons, name="lessons"),
 ]
 
