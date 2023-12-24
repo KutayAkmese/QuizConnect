@@ -14,7 +14,7 @@
           <small class="text-muted fw-bold justify-content-end">{{ timeLineItem.question.updated_at }}</small>
         </div>
         <div class="col-lg-11 py-4 d-flex justify-content-center">
-          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="{% static 'img/example.png' %}" class="d-flex align-items-center" height="400"></a>
+          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="{% static 'img/Kimya.jpeg' %}" class="d-flex align-items-center" height="400"></a>
         </div>
         
 
@@ -22,9 +22,26 @@
           <p class="lead">{{ timeLineItem.question.question_text|slice:255 }}</p>
           <div class="d-flex justify-content-between pt-3">
             <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><button type="button" class="glow-on-hover custom-btn mb-3" style="width: 150px;">View</button></a>
-            <div class="mt-1 d-flex justify-content-between gap-4">
-              <a href=""><button type="button" class="glow-on-hover custom-btn mb-3" style="width: 150px;">Star</button></a>
-              <p class="text-muted fw-bold justify-content-end mt-2">{{ timeLineItem.question.star_number}} &#9733;</p>
+            <div class="mt-1 d-flex justify-content-between gap-4 align-items-center">
+              <a>
+                <button class="like-button">
+                  <div class="like-wrapper">
+                    <div class="ripple"></div>
+                    <svg class="heart" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+                    </svg>
+                    <div class="particles" style="--total-particles: 6">
+                      <div class="particle" style="--i: 1; --color: #7642F0"></div>
+                      <div class="particle" style="--i: 2; --color: #AFD27F"></div>
+                      <div class="particle" style="--i: 3; --color: #DE8F4F"></div>
+                      <div class="particle" style="--i: 4; --color: #D0516B"></div>
+                      <div class="particle" style="--i: 5; --color: #5686F2"></div>
+                      <div class="particle" style="--i: 6; --color: #D53EF3"></div>
+                    </div>
+                  </div>
+                </button>
+              </a>
+              <small class="text-muted fw-bold justify-content-end"> {{ timeLineItem.question.star_number }} Likes</small>
             </div>
           </div>
           

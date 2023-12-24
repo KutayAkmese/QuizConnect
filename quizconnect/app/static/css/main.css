@@ -17,3 +17,52 @@ p {
     color: #61677A;
     text-align: justify;
   }
+
+  @import 'https://fonts.googleapis.com/css?family=Montserrat';
+ 
+        
+
+.single-icon i:hover {
+    transform: scale(1.5);
+    color: #1813e4;
+}
+.multi-icon .set {
+    position: relative;
+    height: 40px;
+    width: 60px;
+    i {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        &:first-of-type {
+            opacity: 1;
+        }
+    }
+    &:hover i {
+        transform: scale(1.5);
+        color: #1813e4;
+    }
+}
+  
+
+.fa-heart:hover {
+	animation: heart .5s cubic-bezier(.36,.07,.57,.99) infinite;
+}
+@keyframes heart {
+	0% {
+		transform: scale(1.5);
+	}
+	20% {
+		transform: scale(2);
+	}
+	30% {
+		transform: scale(1.5);
+	}
+	40% {
+		transform: scale(2);
+	}
+	100% {
+		transform: scale(1.5);
+	}
+}
