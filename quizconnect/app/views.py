@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import User, Question, TimeLineItem
 from django.http import Http404
@@ -54,7 +55,7 @@ def addQuestion(request, user_id):
         questionTitle = request.POST.get("questionTitle")
         lessonSelection = request.POST.get("lessonSelection")
         question = Question(question_title=questionTitle, question_image=imageFile, 
-                            question_text=questionText, user_id= user.id, lesson_id=1)
+                            question_text=questionText, user_id= user.id, lesson_id=2)
         question.save()
         timeLineItem = TimeLineItem(question_id=question.id, user_id=user.id)
         timeLineItem.save()
@@ -105,7 +106,22 @@ def like(request, user_id, item_id):
     question = Question.objects.get(id=question_id[0])
     question.star_number = question.star_number + 1
     question.save()
-  
     return redirect('http://127.0.0.1:8000/home/'+ str(user.id))
+
+def search(request, user_id):
+    user = User.objects.get(id=user_id)
+    if request.method == "POST":
+        searchInput = request.POST.get("searchInput")
+        print(searchInput)
+        timeLineItems = TimeLineItem.objects.filter(
+            question__question_title__icontains=str(searchInput)) | TimeLineItem.objects.filter(
+                user__first_name__icontains=str(searchInput)) | TimeLineItem.objects.filter(question__lesson__name__icontains=str(searchInput))
+
+        
+    return render(request,"index.html", {
+        'user': user,
+        'timeLineItems': timeLineItems,
+    }) 
+    
     
 

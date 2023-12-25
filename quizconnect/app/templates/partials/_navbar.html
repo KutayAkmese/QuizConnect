@@ -17,9 +17,10 @@
       
       <div class="col-lg-5">
         <div class="d-flex justify-content-between">
-          <form class="col-lg-8">
+          <form class="col-lg-8" action="{% url 'search' user_id=user.id %}" method="post">
+            {% csrf_token %}
             <div class="d-flex gap-2">
-              <input type="search" class="form-control form-control-dark" placeholder="Search...">
+              <input type="search" class="form-control form-control-dark" name="searchInput" placeholder="Search...">
               <button type="submit" class="glow-on-hover custom-btn">Search</button>
             </div>  
           </form>
