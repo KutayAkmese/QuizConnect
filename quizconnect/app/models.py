@@ -22,7 +22,7 @@ class Lesson(models.Model):
 class Question(models.Model):
     question_title = models.TextField(default="An explanation is needed for the question here.")
     question_text = models.TextField(default="An explanation is needed for the question here.")
-    question_image = models.ImageField(upload_to ='uploads/questions')
+    question_image = models.ImageField(upload_to ='media/')
     star_number = models.IntegerField(blank=True, default=0)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)

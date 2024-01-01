@@ -14,7 +14,7 @@
           <small class="text-muted fw-bold justify-content-end">{{ timeLineItem.question.updated_at }}</small>
         </div>
         <div class="col-lg-11 py-4 d-flex justify-content-center">
-          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="{% static 'img/Kimya.jpeg' %}" class="d-flex align-items-center" height="400"></a>
+          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="/{{ timeLineItem.question.question_image }}" class="d-flex align-items-center" height="400"></a>
         </div>
         
 

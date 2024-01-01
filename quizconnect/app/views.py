@@ -51,7 +51,7 @@ def addQuestion(request, user_id):
     user = User.objects.get(id=user_id)
     if request.method == "POST": 
         questionText = request.POST.get("questionText")
-        imageFile = request.POST.get("imageFile")
+        imageFile = request.FILES.get("imageFile")
         questionTitle = request.POST.get("questionTitle")
         lessonSelection = request.POST.get("lessonSelection")
         question = Question(question_title=questionTitle, question_image=imageFile, 
