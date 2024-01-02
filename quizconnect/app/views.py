@@ -112,18 +112,15 @@ def like(request, user_id, item_id):
     question = Question.objects.get(id=question_id[0])
     question.star_number = question.star_number + 1
     question.save()
-    return redirect('http://127.0.0.1:8000/home/'+ str(user.id))
+    return redirect('http://127.0.0.1:8000/home/'+ str(user.id) )
 
 def search(request, user_id):
     user = User.objects.get(id=user_id)
     if request.method == "POST":
         searchInput = request.POST.get("searchInput")
         print(searchInput)
-        timeLineItems = TimeLineItem.objects.filter(
-            question__question_title__icontains=str(searchInput)) | TimeLineItem.objects.filter(
-                user__first_name__icontains=str(searchInput)) | TimeLineItem.objects.filter(question__lesson__name__icontains=str(searchInput))
+        timeLineItems = TimeLineItem.objects.filter(question__question_title__icontains=str(searchInput)) | TimeLineItem.objects.filter(user__first_name__icontains=str(searchInput)) | TimeLineItem.objects.filter(question__lesson__name__icontains=str(searchInput)) |TimeLineItem.objects.filter(question__lesson__lesson_code__icontains=str(searchInput))
 
-        
     return render(request,"index.html", {
         'user': user,
         'timeLineItems': timeLineItems,
