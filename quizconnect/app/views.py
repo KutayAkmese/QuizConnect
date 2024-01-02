@@ -7,7 +7,7 @@ from django.contrib import messages
 # Home page / Time line
 def home(request, user_id): 
     mainUser = User.objects.get(id=user_id)
-    timeLineItems = TimeLineItem.objects.all().order_by("-id").order_by("-question__star_number")
+    timeLineItems = TimeLineItem.objects.all().order_by("-id")
     return render(request,"index.html", {
         'user': mainUser,
         'timeLineItems': timeLineItems,

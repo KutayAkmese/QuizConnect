@@ -54,7 +54,7 @@
                     </div>
                 </form>
             </div>
-            <form action="{% url 'addQuestion' user_id=user.id %}" method="POST">
+            <form action="{% url 'addQuestion' user_id=user.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-outline py-4">
                     <label class="form-label fw-bold px-2">Question Title</label>

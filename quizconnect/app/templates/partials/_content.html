@@ -13,9 +13,13 @@
           <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}" class="text-decoration-none"><h2 class="fw-bold lh-1 text-body-emphasis py-1">{{ timeLineItem.question.question_title }}</h2></a>
           <small class="text-muted fw-bold justify-content-end">{{ timeLineItem.question.updated_at }}</small>
         </div>
+        {% if timeLineItem.question.question_image %}
         <div class="col-lg-11 py-4 d-flex justify-content-center">
-          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="/{{ timeLineItem.question.question_image }}" class="d-flex align-items-center" height="400"></a>
+          <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="/media/{{ timeLineItem.question.question_image }}" class="d-flex align-items-center" height="400"></a>
         </div>
+
+        {% endif %}
+        
         
 
         <div class="col-lg-9 mx-3 pt-3">
