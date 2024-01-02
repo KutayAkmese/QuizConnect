@@ -56,15 +56,19 @@ def addQuestion(request, user_id):
         imageFile = request.FILES.get("imageFile")
         questionTitle = request.POST.get("questionTitle")
         lessonSelection = request.POST.get("lessonSelection")
-        lesson_code = lessonSelection.split()[0]
-        print(lesson_code)
-        selectedLesson = Lesson.objects.get(lesson_code=lesson_code)
-        question = Question(question_title=questionTitle, question_image=imageFile, 
+        lessonCode = lessonSelection.split()[0]
+        try :
+            selectedLesson = Lesson.objects.get(lesson_code=lessonCode.strip())
+            question = Question(question_title=questionTitle, question_image=imageFile, 
                             question_text=questionText, user_id= user.id, lesson_id=selectedLesson.id)
-        question.save()
-        timeLineItem = TimeLineItem(question_id=question.id, user_id=user.id)
-        timeLineItem.save()
-        return redirect('http://127.0.0.1:8000/home/' + str(user.id))
+            question.save()
+            timeLineItem = TimeLineItem(question_id=question.id, user_id=user.id)
+            timeLineItem.save()
+            return redirect('http://127.0.0.1:8000/home/' + str(user.id))
+        except Lesson.DoesNotExist:
+            messages.warning(request, "Lesson is not exist")
+
+        
 
     return render(request, "addQuestion.html", {
         'user': user,
@@ -100,7 +104,6 @@ def questionDetail(request, user_id, item_id):
     user = User.objects.get(id=user_id)
     timeLineItem = TimeLineItem.objects.get(id=item_id)
     
-
     return render(request,"details.html", {
         'user': user,
         'timeLineItem': timeLineItem,
@@ -140,7 +143,7 @@ def addLesson(request, user_id):
         newLesson.save()
         return redirect('http://127.0.0.1:8000/add/' + str(user.id)) 
 
-    
+
   
 
     
