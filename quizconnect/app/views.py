@@ -56,8 +56,9 @@ def addQuestion(request, user_id):
         imageFile = request.FILES.get("imageFile")
         questionTitle = request.POST.get("questionTitle")
         lessonSelection = request.POST.get("lessonSelection")
-        print(lessonSelection)
-        selectedLesson = Lesson.objects.get(name=lessonSelection)
+        lesson_code = lessonSelection.split()[0]
+        print(lesson_code)
+        selectedLesson = Lesson.objects.get(lesson_code=lesson_code)
         question = Question(question_title=questionTitle, question_image=imageFile, 
                             question_text=questionText, user_id= user.id, lesson_id=selectedLesson.id)
         question.save()
