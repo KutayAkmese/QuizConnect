@@ -132,7 +132,7 @@ def search(request, user_id):
 def go_questions(request, user_id, lesson_id):
     user = User.objects.get(id=user_id)
     lesson = Lesson.objects.get(id=lesson_id)
-    timeLineItems = TimeLineItem.objects.filter(question__lesson=lesson)
+    timeLineItems = TimeLineItem.objects.filter(question__lesson__name__icontains=str(lesson.name))
 
     return render(request, "index.html", {
         'user': user,
