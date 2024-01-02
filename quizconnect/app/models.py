@@ -13,9 +13,9 @@ class User(models.Model):
     
 class Lesson(models.Model):
     name = models.CharField(max_length=200)
-    lesson_code = models.CharField(max_length=10)
+    lesson_code = models.CharField(max_length=10, null=False, unique=True)
     lecturer = models.CharField(max_length=200)
-    
+        
     def __str__(self): 
         return self.name
     

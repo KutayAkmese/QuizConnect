@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import User, Question, TimeLineItem, Lesson
 from django.http import Http404
+from django.contrib import messages
 
 # Home page / Time line
 def home(request, user_id): 
@@ -49,7 +50,7 @@ def register(request):
     
 def addQuestion(request, user_id):
     user = User.objects.get(id=user_id)
-    lessons = Lesson.objects.all()
+    lessons = Lesson.objects.all().order_by("-lesson_code")
     if request.method == "POST": 
         questionText = request.POST.get("questionText")
         imageFile = request.FILES.get("imageFile")
@@ -125,7 +126,25 @@ def search(request, user_id):
     return render(request,"index.html", {
         'user': user,
         'timeLineItems': timeLineItems,
-    }) 
+    })
+    
+def addLesson(request, user_id):
+    user = User.objects.get(id=user_id)
+    
+    lessonName = request.POST.get("lessonName")
+    lessonCode = request.POST.get("lessonCode")
+    lecturer = request.POST.get("lecturer")
+    if Lesson.objects.filter(lesson_code=lessonCode).exists():
+        messages.warning(request, "Lesson is already exist")
+        return redirect('http://127.0.0.1:8000/add/' + str(user.id))
+    else :
+        newLesson = Lesson(name=lessonName, lesson_code=lessonCode, lecturer=lecturer)
+        newLesson.save()
+        return redirect('http://127.0.0.1:8000/add/' + str(user.id)) 
+
+    
+  
+
     
     
 

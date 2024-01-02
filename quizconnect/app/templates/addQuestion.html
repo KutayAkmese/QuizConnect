@@ -19,9 +19,41 @@
         <div class="d-flex align-items-center">
             <h1 class="display-5 fw-bold lh-1 mb-3">Add a Question </h1>
         </div>
-    </div>
-    <div class="container py-5 d-flex justify-content-center">
+    </div> 
+    <div class=" container col-lg-2">
+        {% if messages %} 
+        {% for message in messages %}
+        <div class="alert alert-warning d-flex justify-content-center" id="messageBox" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div> 
+    
+    <div class="container py-2 d-flex justify-content-center">
         <div class="col-lg-8">
+            <div class="form-group m-4" id="formContainer" style="display:none;">
+                <form id="myForm" action="{% url 'addLesson' user_id=user.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label class="form-label fw-bold px-2">Lesson Name</label>
+                            <input type="text" class="form-control" name="lessonName"/>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label fw-bold px-2">Lesson Code</label>
+                            <input type="text" class="form-control" name="lessonCode" required/>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label fw-bold px-2">Lecturer</label>
+                            <input type="text" class="form-control" name="lecturer"/>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start pt-4">
+                        <button type="submit" class="btn glow-on-hover custom-btn mb-2" style="width: 100px; height: 40px;">Add</button>
+                    </div>
+                </form>
+            </div>
             <form action="{% url 'addQuestion' user_id=user.id %}" method="POST">
                 {% csrf_token %}
                 <div class="form-outline py-4">
@@ -30,12 +62,23 @@
                 </div>
                 <div class="form-group mb-4">
                     <label class="form-label fw-bold px-2">Course Selection</label>
-                    <select class="form-control" name="lessonSelection">
-                        {% for lesson in lessons %}
-                            <option>{{ lesson.name }}</option>
-                        {% endfor %}
-                    </select>
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <select class="form-control" name="lessonSelection">
+                                {% if lessons %}
+                                    {% for lesson in lessons %}
+                                        <option>{{ lesson.lesson_code }} | {{ lesson.name }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="col-lg-1 mt-1">
+                            <a href="" id="acForm"><img src="{% static 'img/edit-tools.png' %}" alt="" height="20"></a>
+                        </div>
+                    </div>
                 </div>
+
+              
                 <div class="form-group mb-4">
                     <div class="row">
                         <label class="form-label fw-bold px-2">Choose an Image</label>
@@ -82,6 +125,24 @@
                 reader.readAsDataURL(fileInput.files[0]);
             }
         }
+
+        document.getElementById('acForm').addEventListener('click', function(event) {
+        event.preventDefault(); // Sayfanın scroll olmasını engellemek için
+        // Formu görünür yap
+        document.getElementById('formContainer').style.display = 'block';
+        });
+
+        setTimeout(
+        function() {
+            var id200 = document.getElementById("messageBox");
+            id200.style.transition = "opacity " + 3 + "s";
+            id200.style.opacity = 0;
+            id200.addEventListener("transitionend", function() {
+            console.log("transition has ended, set display: none;");
+            id200.style.display = "none";
+            });
+        }, 1000
+        );
     </script>
 </body>
 </html>

@@ -18,6 +18,7 @@ urlpatterns=[
     path("lessons/<str:user_id>", views.lessons, name="lessons"),
     path("like/<str:user_id>/<str:item_id>", views.like, name="like"),
     path("search/<str:user_id>", views.search, name="search"),
+    path("addLesson/<str:user_id>", views.addLesson, name="addLesson"),
 ]
 
 if settings.DEBUG:
