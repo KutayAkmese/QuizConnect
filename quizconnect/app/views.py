@@ -82,9 +82,11 @@ def profile(request, user_id):
 # Lessons pages
 def lessons(request, user_id):
     user = User.objects.get(id=user_id)
+    lessons = Lesson.objects.all()
     
     return render(request,"lessons.html", {
-        'user': user
+        'user': user,
+        'lessons': lessons,
     })
 
 # Lessons detial

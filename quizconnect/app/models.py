@@ -12,9 +12,9 @@ class User(models.Model):
         return self.first_name + " " + self.last_name
     
 class Lesson(models.Model):
-    name = models.CharField(max_length=200)
-    lesson_code = models.CharField(max_length=10, null=False, unique=True)
-    lecturer = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, blank=True)
+    lesson_code = models.CharField(max_length=10, null=False, unique=True, blank=True)
+    lecturer = models.CharField(max_length=200, blank=True)
         
     def __str__(self): 
         return self.name
