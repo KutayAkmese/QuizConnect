@@ -31,11 +31,9 @@
                 <div class="form-group mb-4">
                     <label class="form-label fw-bold px-2">Course Selection</label>
                     <select class="form-control" name="lessonSelection">
-                        <option>Data Structures and Algorithms</option>
-                        <option>Physics</option>
-                        <option>Calculus I</option>
-                        <option>Artificial Intelligence</option>
-                        <option>Database</option>
+                        {% for lesson in lessons %}
+                            <option>{{ lesson.name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="form-group mb-4">

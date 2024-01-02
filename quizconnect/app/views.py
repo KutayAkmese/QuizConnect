@@ -1,12 +1,12 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from .models import User, Question, TimeLineItem
+from .models import User, Question, TimeLineItem, Lesson
 from django.http import Http404
 
 # Home page / Time line
 def home(request, user_id): 
     mainUser = User.objects.get(id=user_id)
-    timeLineItems = TimeLineItem.objects.all().order_by("-id")
+    timeLineItems = TimeLineItem.objects.all().order_by("-id").order_by("-question__star_number")
     return render(request,"index.html", {
         'user': mainUser,
         'timeLineItems': timeLineItems,
@@ -49,20 +49,24 @@ def register(request):
     
 def addQuestion(request, user_id):
     user = User.objects.get(id=user_id)
+    lessons = Lesson.objects.all()
     if request.method == "POST": 
         questionText = request.POST.get("questionText")
         imageFile = request.FILES.get("imageFile")
         questionTitle = request.POST.get("questionTitle")
         lessonSelection = request.POST.get("lessonSelection")
+        print(lessonSelection)
+        selectedLesson = Lesson.objects.get(name=lessonSelection)
         question = Question(question_title=questionTitle, question_image=imageFile, 
-                            question_text=questionText, user_id= user.id, lesson_id=2)
+                            question_text=questionText, user_id= user.id, lesson_id=selectedLesson.id)
         question.save()
         timeLineItem = TimeLineItem(question_id=question.id, user_id=user.id)
         timeLineItem.save()
         return redirect('http://127.0.0.1:8000/home/' + str(user.id))
 
     return render(request, "addQuestion.html", {
-        'user': user
+        'user': user,
+        'lessons':lessons,
     })
    
 # Profile page
