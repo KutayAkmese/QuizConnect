@@ -27,11 +27,11 @@
                 <h1 class="display-6 fw-bold lh-1 text-body-emphasis">{{ lesson.name }}</h1><br>
                 <h3 class="lead">Lesson Code: {{ lesson.lesson_code }}</h3>
                 <h3 class="lead">Lecturer: {{ lesson.lecturer }}</h3>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    
-                        <button type="button" class="glow-on-hover custom-btn " style="width: 150px;">Go Questions</button>
-                    </a>
-                </div>
+                <form action="{% url 'go_questions' user.id lesson.id %}" method="get">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                        <button type="submit" class="glow-on-hover custom-btn" style="width: 150px;">Go Questions</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -118,6 +118,7 @@ def like(request, user_id, item_id):
 
 def search(request, user_id):
     user = User.objects.get(id=user_id)
+
     if request.method == "POST":
         searchInput = request.POST.get("searchInput")
         print(searchInput)
@@ -127,7 +128,17 @@ def search(request, user_id):
         'user': user,
         'timeLineItems': timeLineItems,
     })
-    
+
+def go_questions(request, user_id, lesson_id):
+    user = User.objects.get(id=user_id)
+    lesson = Lesson.objects.get(id=lesson_id)
+    timeLineItems = TimeLineItem.objects.filter(question__lesson=lesson)
+
+    return render(request, "index.html", {
+        'user': user,
+        'timeLineItems': timeLineItems,
+    })
+
 def addLesson(request, user_id):
     user = User.objects.get(id=user_id)
     
