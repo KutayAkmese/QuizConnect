@@ -19,6 +19,7 @@ urlpatterns=[
     path("like/<str:user_id>/<str:item_id>", views.like, name="like"),
     path("search/<str:user_id>", views.search, name="search"),
     path("addLesson/<str:user_id>", views.addLesson, name="addLesson"),
+    path("go_questions/<str:user_id>/<str:lesson_id>", views.go_questions, name="go_questions"),
     path("addAnswer/<str:user_id>/<str:item_id>", views.addAnswer, name="addAnswer"),
 ]
 

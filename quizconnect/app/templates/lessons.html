@@ -20,47 +20,22 @@
         </div>
     </div>
 
+    {% for lesson in lessons %}
     <div class="container my-5 col-lg-6">
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
             <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                <h1 class="display-6 fw-bold lh-1 text-body-emphasis">Calculus </h1>
-                <p class="lead">All Questions About Calculus</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <a href="{% url 'home' user_id=user.id %}"><button type="button" class="glow-on-hover custom-btn " style="width: 150px;">Go Questions</button></a>
-                </div>
-            </div>
-            <div class="col-lg-4 offset-lg-1 pb-5 overflow-hidden">
-                <a href="{% url 'home' user_id=user.id %}"><img class="rounded-lg-3 pb-2" src="{% static 'img/calculus.jpg' %}" width="200"></a>
-            </div>
-        </div>
-    </div>
-    <div class="container my-5 col-lg-6">
-        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-            <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                <h1 class="display-6 fw-bold lh-1 text-body-emphasis">Calculus </h1>
-                <p class="lead">All Questions About Calculus</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <a href="{% url 'home' user_id=user.id %}"><button type="button" class="glow-on-hover custom-btn " style="width: 150px;">Go Questions</button></a>
-                </div>
-            </div>
-            <div class="col-lg-4 offset-lg-1 pb-5 overflow-hidden">
-                <a href="{% url 'home' user_id=user.id %}"><img class="rounded-lg-3 pb-2" src="{% static 'img/calculus.jpg' %}" width="200"></a>
-            </div>
-        </div>
-    </div> <div class="container my-5 col-lg-6">
-        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-            <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                <h1 class="display-6 fw-bold lh-1 text-body-emphasis">Calculus </h1>
-                <p class="lead">All Questions About Calculus</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <a href="{% url 'home' user_id=user.id %}"><button type="button" class="glow-on-hover custom-btn " style="width: 150px;">Go Questions</button></a>
-                </div>
-            </div>
-            <div class="col-lg-4 offset-lg-1 pb-5 overflow-hidden">
-                <a href="{% url 'home' user_id=user.id %}"><img class="rounded-lg-3 pb-2" src="{% static 'img/calculus.jpg' %}" width="200"></a>
+                <h1 class="display-6 fw-bold lh-1 text-body-emphasis">{{ lesson.name }}</h1><br>
+                <h3 class="lead">Lesson Code: {{ lesson.lesson_code }}</h3>
+                <h3 class="lead">Lecturer: {{ lesson.lecturer }}</h3>
+                <form action="{% url 'go_questions' user.id lesson.id %}" method="get">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                        <button type="submit" class="glow-on-hover custom-btn" style="width: 150px;">Go Questions</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+    {% endfor %}
 
 
     {% include 'partials/_footer.html'%}
