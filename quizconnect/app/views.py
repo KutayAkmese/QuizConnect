@@ -78,9 +78,13 @@ def addQuestion(request, user_id):
 # Profile page
 def profile(request, user_id):
     user = User.objects.get(id=user_id)
+    timeLineItems = TimeLineItem.objects.filter(user_id=user_id)
+    count = TimeLineItem.objects.filter(user_id=user_id).count()    
 
     return render(request, "profile.html", {
-        'user':user
+        'user':user,
+        'timeLineItems': timeLineItems,
+        'count': count,
     }) 
     
 # Lessons pages
@@ -106,11 +110,13 @@ def questionDetail(request, user_id, item_id):
     user = User.objects.get(id=user_id)
     timeLineItem = TimeLineItem.objects.get(id=item_id)
     answer = Answer.objects.all().order_by("-id")
+    answer_count = Answer.objects.filter(question_id=timeLineItem.question.id).count()
     
     return render(request,"details.html", {
         'user': user,
         'timeLineItem': timeLineItem,
         'answer': answer,
+        'answer_count': answer_count,
     })
     
 def like(request, user_id, item_id):
