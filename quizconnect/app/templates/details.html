@@ -11,7 +11,20 @@
     <link rel="stylesheet" href="{% static 'css/button.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/like-button.css' %}">
-
+    <style>
+        .slash-3 {
+            height: 12px;    
+            background-image: linear-gradient(46deg,
+                hsla(0, 100%, 51%, 0),
+                hsla(0, 0%, 0%, 0) 33.33%,
+                hsla(0, 0%, 5%, 1) 33.33%,
+                hsla(0, 0%, 5%, 1) 66.67%,
+                hsla(0, 0%, 0%, 0) 66.67%,
+                hsla(0, 0%, 5%, 0) 100%);
+            background-size: 9px 100%;
+            width: 98vh;
+        }   
+    </style>
 </head>
 
 <body>
@@ -42,87 +55,110 @@
                         src="/media/{{ timeLineItem.question.question_image }}" class="d-flex align-items-center"
                         height="400"></a>
             </div>
-
             {% endif %}
-
             <div class="col-lg-9 mx-3 pt-3">
                 <p class="lead">{{ timeLineItem.question.question_text }}</p>
                 <div class="d-flex justify-content-between pt-3">
-                    <div class="d-flex justify-content-between">
-                        <a href="" id="acForm" style="margin-right: 10px"><img src="{% static 'img/edit-tools.png' %}" alt="" height="20"></a>
-                        <small class="text-muted fw-bold justify-content-end"> {{ timeLineItem.question.star_number }} Answers</small>
-                    </div>
-                   
+                    <a href="" id="acForm" style="margin-right: 10px"><button type="submit"
+                            class="glow-on-hover custom-btn mb-3" style="width: 150px;">Reply</button></a>
+                    <small class="text-muted fw-bold justify-content-end"> {{ timeLineItem.question.star_number }}
+                        Answers</small>
                 </div>
-
             </div>
-
-
-                <!-- Burası yorum yapmak icin açılacak container -->
-                <div class="row p-5 mt-4 pt-5 align-items-center rounded-3 border shadow-lg d-flex justify-content-center">
-      
-
-             <div class="form-group m-4" id="formContainer">
-                <form id="myForm" action="{% url 'addAnswer' user_id=user.id  item_id=timeLineItem.id%}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="row">
-
-                        <div class="form-outline mb-4">
-                            <label class="form-label px-2 fw-bold">Write Answer...</label>
-                            <textarea class="form-control" name="answerText" rows="7"></textarea>
+            <div class="row align-items-center rounded-3 d-flex justify-content-center">
+                <div class="form-group m-4" id="formContainer" style="display:none;">
+                    <form id="myForm" action="{% url 'addAnswer' user_id=user.id  item_id=timeLineItem.id%}"
+                        method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group mb-4">
+                                <div class="row">
+                                    <label class="form-label fw-bold px-2">Choose an Image</label>
+                                    <div class="col-lg-5 d-flex justify-content-center rounded-5" style="background-color: white;">
+                                        <div class="col-lg-8 d-flex justify-content-center p-3">
+                                            <img id="selectedAvatar"
+                                                src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                                                class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;"
+                                                alt="example placeholder" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 d-flex align-items-center justify-content-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="btn glow-on-hover custom-btn d-flex align-items-center justify-content-center"
+                                                style="width: 150px;">
+                                                <label class="form-label text-white m-1" for="customFile2">Choose file</label>
+                                                <input type="file" class="form-control d-none"  id="customFile2" name="imageFile"
+                                                    onchange="displaySelectedImage(event, 'selectedAvatar')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="form-outline mb-4">
+                                <label class="form-label px-2 fw-bold">Write Answer...</label>
+                                <textarea class="form-control" name="answerText" rows="7"></textarea>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><button
+                                        type="submit" class="glow-on-hover custom-btn mb-3"
+                                        style="width: 150px;">Answer</button></a>
+                            </div>
                         </div>
-
-
-                        <div class="d-flex justify-content-between">
-                        <div class="btn glow-on-hover custom-btn d-flex align-items-center justify-content-center"
-                                    style="width: 150px;">
-                                    <label class="form-label text-white m-1" for="customFile2">Add Photo</label>
-                                    <input type="file" class="form-control d-none"  id="customFile2" name="imageFile"
-                                        onchange="displaySelectedImage(event, 'selectedAvatar')" />               
-                        </div>
-                        <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><button type="submit"
-                            class="glow-on-hover custom-btn mb-3" style="width: 150px;">Answer</button></a>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-
         </div>
-
-            
-
-            <!-- Burası yorum bölümü için(for ile döndürülecek) -->
+        
+        <!-- Burada Answer'lar basliyor. -->
+        <div class="container col-xxl-12 pt-5 d-flex justify-content-center">
+            <div class="d-flex align-items-center mb-2 pt-5">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Answers</h1>
+            </div>
+        </div> 
+        <div class="row p-3 align-items-center rounded-3  shadow-lg d-flex justify-content-center">
             {% for answer in answer %}
             {% if answer.question_id == timeLineItem.question.id %}
-            <div class="row p-5 mt-4 pt-5 align-items-center rounded-3 border shadow-lg d-flex justify-content-center">
+            <div class="row p-5 mt-5 mb-3 align-items-center rounded-3 d-flex justify-content-center">
                 <div class="col-lg-11 d-flex justify-content-between pb-3">
-                    <h2 class="text-muted fw-bold"> {{ timeLineItem.user.first_name }} {{ timeLineItem.user.last_name }}</h2>
+                    <h2 class="text-muted fw-bold"> {{ timeLineItem.user.first_name }} {{ timeLineItem.user.last_name }}
+                    </h2>
                     <small class="text-muted fw-bold justify-content-end">{{ answer.created_at }}</small>
                 </div>
-                <hr class="col-lg-11 pb-2"> 
+                <hr class="col-lg-11 pb-2">
 
-            {% if answer.answer_image %}
+                {% if answer.answer_image %}
                 <div class="col-lg-11 py-4 d-flex justify-content-center">
-                     <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img src="/media/{{ answer.answer_image }}" class="d-flex align-items-center" height="400"></a>
+                    <a href="{% url 'details' user_id=user.id item_id=timeLineItem.id %}"><img
+                            src="/media/{{ answer.answer_image }}" class="d-flex align-items-center" height="400"></a>
                 </div>
-            {% endif %}
-                <p class="lead">{{ answer.answer_text|slice:255 }}</p>
+                {% endif %}
+                <p class="lead">{{ answer.answer_text }}</p>
             </div>
-            <!-- forun bittiği yer olcak -->
+            <hr class="slash-3">
             {% endif %}
             {% endfor %}
-
-
-
         </div>
     </div>
-    
-   
-
-
-
     {% include 'partials/_footer.html'%}
 
+    <script>
+        function displaySelectedImage(event, elementId) {
+            const selectedImage = document.getElementById(elementId);
+            const fileInput = event.target;
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    selectedImage.src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+        document.getElementById('acForm').addEventListener('click', function (event) {
+            event.preventDefault(); // Sayfanın scroll olmasını engellemek için
+            // Formu görünür yap
+            document.getElementById('formContainer').style.display = 'block';
+        });
+    </script>
 </body>
 
 </html>
