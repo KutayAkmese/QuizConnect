@@ -83,11 +83,11 @@ WSGI_APPLICATION = "quizconnect.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
+        'NAME': 'QuizConnect',
         'USER': 'postgres',
-        'PASSWORD': '-Afb2cGDaGfEDga1FGA31CdB6cBge*g-',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '51949'
+        'PASSWORD': 'Berkan188138',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
