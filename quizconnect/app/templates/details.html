@@ -13,17 +13,17 @@
     <link rel="stylesheet" href="{% static 'css/like-button.css' %}">
     <style>
         .slash-3 {
-            height: 12px;    
+            height: 12px;
             background-image: linear-gradient(46deg,
-                hsla(0, 100%, 51%, 0),
-                hsla(0, 0%, 0%, 0) 33.33%,
-                hsla(0, 0%, 5%, 1) 33.33%,
-                hsla(0, 0%, 5%, 1) 66.67%,
-                hsla(0, 0%, 0%, 0) 66.67%,
-                hsla(0, 0%, 5%, 0) 100%);
+                    hsla(0, 100%, 51%, 0),
+                    hsla(0, 0%, 0%, 0) 33.33%,
+                    hsla(0, 0%, 5%, 1) 33.33%,
+                    hsla(0, 0%, 5%, 1) 66.67%,
+                    hsla(0, 0%, 0%, 0) 66.67%,
+                    hsla(0, 0%, 5%, 0) 100%);
             background-size: 9px 100%;
             width: 98vh;
-        }   
+        }
     </style>
 </head>
 
@@ -74,11 +74,13 @@
                             <div class="form-group mb-4">
                                 <div class="row">
                                     <label class="form-label fw-bold px-2">Choose an Image</label>
-                                    <div class="col-lg-5 d-flex justify-content-center rounded-5" style="background-color: white;">
+                                    <div class="col-lg-5 d-flex justify-content-center rounded-5"
+                                        style="background-color: white;">
                                         <div class="col-lg-8 d-flex justify-content-center p-3">
                                             <img id="selectedAvatar"
                                                 src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
-                                                class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;"
+                                                class="rounded-circle"
+                                                style="width: 200px; height: 200px; object-fit: cover;"
                                                 alt="example placeholder" />
                                         </div>
                                     </div>
@@ -86,14 +88,16 @@
                                         <div class="d-flex align-items-center">
                                             <div class="btn glow-on-hover custom-btn d-flex align-items-center justify-content-center"
                                                 style="width: 150px;">
-                                                <label class="form-label text-white m-1" for="customFile2">Choose file</label>
-                                                <input type="file" class="form-control d-none"  id="customFile2" name="imageFile"
+                                                <label class="form-label text-white m-1" for="customFile2">Choose
+                                                    file</label>
+                                                <input type="file" class="form-control d-none" id="customFile2"
+                                                    name="imageFile"
                                                     onchange="displaySelectedImage(event, 'selectedAvatar')" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label px-2 fw-bold">Write Answer...</label>
                                 <textarea class="form-control" name="answerText" rows="7"></textarea>
@@ -108,13 +112,14 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Burada Answer'lar basliyor. -->
         <div class="container col-xxl-12 pt-5 d-flex justify-content-center">
             <div class="d-flex align-items-center mb-2 pt-5">
                 <h1 class="display-5 fw-bold lh-1 mb-3">Answers</h1>
             </div>
-        </div> 
+        </div>
+
         <div class="row p-3 align-items-center rounded-3  shadow-lg d-flex justify-content-center">
             {% for answer in answer %}
             {% if answer.question_id == timeLineItem.question.id %}
@@ -138,6 +143,10 @@
             {% endif %}
             {% endfor %}
         </div>
+      
+
+       
+      
     </div>
     {% include 'partials/_footer.html'%}
 
