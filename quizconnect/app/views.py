@@ -79,12 +79,17 @@ def addQuestion(request, user_id):
 def profile(request, user_id):
     user = User.objects.get(id=user_id)
     timeLineItems = TimeLineItem.objects.filter(user_id=user_id)
-    count = TimeLineItem.objects.filter(user_id=user_id).count()    
+    count = TimeLineItem.objects.filter(user_id=user_id).count()
+    sum = 0
+    questions = Question.objects.filter(user_id=user_id)
+    for question in questions:
+        sum += question.star_number    
 
     return render(request, "profile.html", {
         'user':user,
         'timeLineItems': timeLineItems,
         'count': count,
+        'star_sum': sum,
     }) 
     
 # Lessons pages
