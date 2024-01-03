@@ -40,8 +40,8 @@ class TimeLineItem(models.Model):
 
 class Answer(models.Model):
     answer_text = models.TextField(default="An explanation is needed for the answer here.")
-    answer_image = models.ImageField(upload_to ='uploads/answers', blank=True)
-    star_number = models.IntegerField()
+    answer_image = models.ImageField(upload_to ='media/', blank=True, null=True)
+    star_number = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

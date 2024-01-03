@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from .models import User, Question, TimeLineItem, Lesson
+from .models import User, Question, TimeLineItem, Lesson, Answer
 from django.http import Http404
 from django.contrib import messages
 
@@ -103,10 +103,12 @@ def lessonDetails(request, user_id):
 def questionDetail(request, user_id, item_id):
     user = User.objects.get(id=user_id)
     timeLineItem = TimeLineItem.objects.get(id=item_id)
+    answer = Answer.objects.all().order_by("-id")
     
     return render(request,"details.html", {
         'user': user,
         'timeLineItem': timeLineItem,
+        'answer': answer,
     })
     
 def like(request, user_id, item_id):
@@ -143,6 +145,16 @@ def addLesson(request, user_id):
         newLesson.save()
         return redirect('http://127.0.0.1:8000/add/' + str(user.id)) 
 
+
+def addAnswer(request, user_id,item_id):
+    if request.method == "POST":
+        user = User.objects.get(id=user_id)
+        item = TimeLineItem.objects.get(id=item_id)
+        answerText = request.POST.get("answerText")
+        imageFile = request.FILES.get("imageFile")
+        newAnswer = Answer(answer_text=answerText, answer_image=imageFile,user_id= user.id, question_id = item.question.id)
+        newAnswer.save()
+    return redirect('http://127.0.0.1:8000/details/' + str(user.id)+'/'+ str(item_id))
 
   
 
