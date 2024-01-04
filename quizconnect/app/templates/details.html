@@ -61,8 +61,12 @@
                 <div class="d-flex justify-content-between pt-3">
                     <a href="" id="acForm" style="margin-right: 10px"><button type="submit"
                             class="glow-on-hover custom-btn mb-3" style="width: 150px;">Reply</button></a>
-                    <small class="text-muted fw-bold justify-content-end"> {{ answer_count }}
-                        Answers</small>
+                    <div>
+                        <small class="text-muted fw-bold justify-content-end px-3"> {{ answer_count }}
+                            Answers</small>
+                        <img src="{% static 'img/edit-tools.png' %}" width="20px">
+                    </div>
+                    
                 </div>
             </div>
             <div class="row align-items-center rounded-3 d-flex justify-content-center">
@@ -119,13 +123,12 @@
                 <h1 class="display-5 fw-bold lh-1 mb-3">Answers</h1>
             </div>
         </div>
-
-        <div class="row p-3 align-items-center rounded-3  shadow-lg d-flex justify-content-center">
-            {% for answer in answer %}
-            {% if answer.question_id == timeLineItem.question.id %}
+        {% for answer in answer %}
+        {% if answer.question_id == timeLineItem.question.id %}
+        <div class="row py-5 my-4 align-items-center rounded-3 shadow-lg d-flex justify-content-center">
             <div class="row p-5 mt-5 mb-3 align-items-center rounded-3 d-flex justify-content-center">
                 <div class="col-lg-11 d-flex justify-content-between pb-3">
-                    <h2 class="text-muted fw-bold"> {{ timeLineItem.user.first_name }} {{ timeLineItem.user.last_name }}
+                    <h2 class="text-muted fw-bold"> {{ answer.user.first_name }} {{ answer.user.last_name }}
                     </h2>
                     <small class="text-muted fw-bold justify-content-end">{{ answer.created_at }}</small>
                 </div>
@@ -139,10 +142,10 @@
                 {% endif %}
                 <p class="lead">{{ answer.answer_text }}</p>
             </div>
-            <hr class="slash-3">
-            {% endif %}
-            {% endfor %}
         </div>
+        <hr class="slash-3 my-5">
+        {% endif %}
+        {% endfor %}
       
 
        
