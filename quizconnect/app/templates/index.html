@@ -9,16 +9,77 @@
     <link rel="stylesheet" href="{% static 'css/button.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/like-button.css' %}">
+
+    <style>
+      /* CSS */
+      .button-54 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #000;
+        cursor: pointer;
+        border: 3px solid;
+        padding: 0.25em 0.5em;
+        box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+        position: relative;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .button-54:active {
+        box-shadow: 0px 0px 0px 0px;
+        top: 5px;
+        left: 5px;
+      }
+
+      @media (min-width: 768px) {
+        .button-54 {
+          padding: 0.25em 0.75em;
+        }
+      }
+    </style>
 </head>
   <body>
     {% include 'partials/_navbar.html'%}
 
-    <div class="pt-5 d-flex justify-content-center">
-        <div class="align-self-center">
-            <h1 class="display-5 fw-bold mb-3">Time Line</h1>
-        </div>  
+    <div class="container col-lg-7">
+      <div class="pt-5 d-flex justify-content-end"> 
+        <div id="sortContainer" style="display: none;">
+          <div class="btn-group d-flex justify-content-between" role="group" >
+            <form action="{% url 'sortByDate' user.id  %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="button-54" role="button">Date</button>
+            </form>
+            <form action="{% url 'sortByLike' user.id  %}" method="POST">
+              {% csrf_token %}
+              <button  type="submit" class="button-54" role="button">Like Number</button> 
+            </form>
+            <form action="{% url 'sortByTitle' user.id  %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="button-54" role="button">Title</button>
+            </form>
+            <form action="{% url 'sortByLesson' user.id  %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="button-54" role="button">Lesson</button>
+            </form>
+            <form action="{% url 'sortByUser' user.id  %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="button-54" role="button">User</button>
+            </form>
+            
+          </div>
+        </div>
+        <a href="" id="acForm" style="text-decoration: none;">
+          <div class="px-4 pt-2">
+            <img src="{% static 'img/tool.png' %}" width="30px">
+            <small class="text-muted fw-bold justify-content-end">Sort by</small>
+          </div>
+        </a>
+      </div>
     </div>
-  
     {% include 'partials/_content.html'%}
 
 
@@ -30,6 +91,12 @@
     let b = document.querySelector('button');
     setTimeout(()=>b.focus(), 100);
     setTimeout(()=>b.blur(), 1000);
+
+    document.getElementById('acForm').addEventListener('click', function(event) {
+        event.preventDefault(); // Sayfanın scroll olmasını engellemek için
+        // Formu görünür yap
+        document.getElementById('sortContainer').style.display = 'block';
+        });
     </script>
 </body>
 </html>

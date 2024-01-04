@@ -180,6 +180,51 @@ def addAnswer(request, user_id,item_id):
         newAnswer.save()
     return redirect('http://127.0.0.1:8000/details/' + str(user.id)+'/'+ str(item_id))
 
+def sortByDate(request, user_id):
+    user = User.objects.get(id=user_id)
+    timeLineItems = TimeLineItem.objects.all().order_by("-question__created_at")
+
+    return render(request, "index.html", {
+        'user': user,
+        'timeLineItems': timeLineItems,
+    })
+
+def sortByLike(request, user_id):
+    user = User.objects.get(id=user_id)
+    timeLineItems = TimeLineItem.objects.all().order_by("-question__star_number")
+    return render(request, "index.html", {
+        'user': user,
+        'timeLineItems': timeLineItems,
+    })
+
+def sortByLesson(request, user_id):
+    user = User.objects.get(id=user_id)
+    timeLineItems = TimeLineItem.objects.all().order_by("question__lesson__name")
+
+    return render(request, "index.html", {
+        'user': user,
+        'timeLineItems': timeLineItems,
+    })
+
+def sortByUser(request, user_id):
+    user = User.objects.get(id=user_id)
+    timeLineItems = TimeLineItem.objects.all().order_by("user__first_name")
+
+    return render(request, "index.html", {
+        'user': user,
+        'timeLineItems': timeLineItems,
+    })
+
+def sortByTitle(request, user_id):
+    user = User.objects.get(id=user_id)
+    timeLineItems = TimeLineItem.objects.all().order_by("question__question_title")
+
+    return render(request, "index.html", {
+        'user': user,
+        'timeLineItems': timeLineItems,
+    })
+
+
   
 
     

@@ -21,6 +21,11 @@ urlpatterns=[
     path("addLesson/<str:user_id>", views.addLesson, name="addLesson"),
     path("go_questions/<str:user_id>/<str:lesson_id>", views.go_questions, name="go_questions"),
     path("addAnswer/<str:user_id>/<str:item_id>", views.addAnswer, name="addAnswer"),
+    path("sortById/<str:user_id>", views.sortByDate, name="sortByDate"),
+    path("sortByLike/<str:user_id>", views.sortByLike, name="sortByLike"),
+    path("sortByLesson/<str:user_id>", views.sortByLesson, name="sortByLesson"),
+    path("sortByUser/<str:user_id>", views.sortByUser, name="sortByUser"),
+    path("sortByTitle/<str:user_id>", views.sortByTitle, name="sortByTitle"),
 ]
 
 if settings.DEBUG:
