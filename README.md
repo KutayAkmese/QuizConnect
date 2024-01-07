@@ -53,3 +53,7 @@ DATABASES = {
 4. Migrate the changes <br>
 ```python manage.py makemigrations``` <br>
 ```python manage.py migrate```
+
+5. Run the server <br>
+```python manage.py runserver```
+
