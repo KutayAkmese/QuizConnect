@@ -20,7 +20,7 @@ Das Hauptziel des QuizConnect-Projekts besteht darin, eine Plattform zu schaffen
 3.1 Head into settings.py
 
 3.2 Find this block
-DATABASES = {
+"DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'QuizConnect',
@@ -29,6 +29,6 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432'
     }
-}
+}"
 
 
