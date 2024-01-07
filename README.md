@@ -17,6 +17,8 @@ Das Hauptziel des QuizConnect-Projekts besteht darin, eine Plattform zu schaffen
 
 3. Configuring Database Using Online PostgreSQL (This might be cause the program to run slowly)
 
+
+
 3.1 Head into settings.py
 
 3.2 Find this block
@@ -45,4 +47,9 @@ DATABASES = {
         'HOST': 'roundhouse.proxy.rlwy.net',
         'PORT': '26991'
     }
-}```
+}
+```
+
+4. Migrate the changes
+```python manage.py makemigrations```
+```python manage.py migrate```
