@@ -57,3 +57,6 @@ DATABASES = {
 5. Run the server <br>
 ```python manage.py runserver```
 
+
+After completing all these steps, you can click on the link in the terminal to go to the website, register, and start using the system.
+
