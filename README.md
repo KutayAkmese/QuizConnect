@@ -7,4 +7,6 @@ Das Hauptziel des QuizConnect-Projekts besteht darin, eine Plattform zu schaffen
 
 <h2>Zum Laufen bekommen</h2>
 
+Clone the repository to local
 
+`git clone` https://github.com/KutayAkmese/QuizConnect.git
