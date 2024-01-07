@@ -78,7 +78,7 @@ def addQuestion(request, user_id):
 # Profile page
 def profile(request, user_id):
     user = User.objects.get(id=user_id)
-    timeLineItems = TimeLineItem.objects.filter(user_id=user_id)
+    timeLineItems = TimeLineItem.objects.filter(user_id=user_id).order_by("-question__created_at")
     count = TimeLineItem.objects.filter(user_id=user_id).count()
     sum = 0
     questions = Question.objects.filter(user_id=user_id)
