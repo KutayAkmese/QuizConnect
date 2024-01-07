@@ -50,6 +50,6 @@ DATABASES = {
 }
 ```
 
-4. Migrate the changes
-```python manage.py makemigrations```
+4. Migrate the changes <br>
+```python manage.py makemigrations``` <br>
 ```python manage.py migrate```
