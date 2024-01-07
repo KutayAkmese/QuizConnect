@@ -33,3 +33,19 @@ DATABASES = {
 }
 ```
 
+3.3 Replace this code with the provided code below.
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'BCc-4GFFG-63gB2D-Gb13B251G2FBGEb',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '26991'
+    }
+}```
+
+
+
